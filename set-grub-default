@@ -1,0 +1,3 @@
+# set-grub-default <default-index>
+sudo sed -iE "s/^GRUB_DEFAULT=[0-9]/GRUB_DEFAULT=0/" /etc/default/grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg

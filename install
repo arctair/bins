@@ -4,4 +4,4 @@ if [ ! -e $installdir ]; then
   ln -s `pwd` $installdir
 fi
 
-find $installdir -not -name install -type f -exec ln -s {} $installdir \;
+find $installdir -path $installdir.git -prune -o -not -name install -type f -exec zsh -c ' ln -s {} ~/.local/bin || :' \;
