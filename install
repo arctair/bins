@@ -4,5 +4,4 @@ if [ ! -e $installdir ]; then
   ln -s `pwd` $installdir
 fi
 
-echo sorry about potential errors of success...
-find $installdir -path $installdir.git -prune -o -not -name install -type f -exec zsh -c 'ln -s {} ~/.local/bin || :' \;
+find $installdir -path $installdir.git -prune -o -not -name install -not -name README.md -type f -exec zsh -c 'ln -s {} ~/.local/bin 2&>/dev/null && echo {} newly installed || echo {} already installed' \;
