@@ -1,0 +1,5 @@
+#!/bin/zsh
+response="`curl -svXGET \
+  https://api.github.com/repos/nomifactory/nomifactory/actions/workflows/nightly.yml/runs \
+  -u arctair:$GITHUB_TOKEN`"
+echo $response
