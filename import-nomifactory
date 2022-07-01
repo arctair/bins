@@ -1,0 +1,18 @@
+#!/bin/zsh
+if [ -z "$1" ] || [ -z "$2" ] ; then
+  echo "usage: $0 <from-modloaded-zip> <import-instance>"
+  exit 1
+fi
+
+instance="`echo $1.instance | rev | cut -d '/' -f1 | rev`"
+echo ok go create `pwd`/$instance with multimc
+echo remember to import forge 1.12
+echo and set java to v8
+read -sk 'done?'
+unzip -d $instance/.minecraft $1
+
+find $2/.minecraft/saves -type f -exec echo todo copy save {} \;
+find $2/.minecraft/resourcepacks -type f -exec echo todo copy resource pack {} \;
+find $2/.minecraft/options.txt -type f -exec cp {} $instance/.minecraft \;
+find $2/.minecraft/journeymap -maxdepth 0 -type d -exec cp -r {} $instance/.minecraft \;
+find $2/.minecraft/config/jei/bookmarks.ini -type f -exec cp {} $instance/.minecraft/config/jei/ \;
