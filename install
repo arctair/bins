@@ -1,7 +1,2 @@
 #!/bin/zsh
-installdir=/home/arctair/.local/share/arctair-bins/
-if [ ! -e $installdir ]; then
-  ln -s `pwd` $installdir
-fi
-
-find $installdir -path $installdir.git -prune -o -not -name install -not -name README.md -type f -exec zsh -c 'ln -s {} ~/.local/bin 2&>/dev/null && echo {} newly installed || echo {} already installed' \;
+find ~+ -path '*/.git/*' -prune -o -not -name install -not -name README.md -type f -exec zsh -c 'ln -s {} ~/.local/bin 2&>/dev/null && echo {} newly installed || echo {} already installed' \;
