@@ -1,18 +1,20 @@
 #!/bin/zsh
-if [ -z "$1" ] || [ -z "$2" ] ; then
-  echo "usage: $0 <from-modloaded-zip> <import-instance>"
+zip="$1"
+instance="$2"
+from="$3"
+if [ -z "$zip" ] || [ -z "$instance" ] || [ -z "$from" ] ; then
+  echo "usage: $0 <from-modloaded-zip> <to-instance> <from-instance>"
   exit 1
 fi
 
-instance="`echo $1.instance | rev | cut -d '/' -f1 | rev`"
-echo ok go create `pwd`/$instance with multimc
+echo ok go create $instance with multimc
 echo remember to import forge 1.12
 echo and set java to v8
 read -sk 'done?'
-unzip -d $instance/.minecraft $1
+unzip -d $instance/.minecraft $zip
 
-find $2/.minecraft/saves -type f -exec echo todo copy save {} \;
-find $2/.minecraft/resourcepacks -type f -exec echo todo copy resource pack {} \;
-find $2/.minecraft/options.txt -type f -exec cp {} $instance/.minecraft \;
-find $2/.minecraft/journeymap -maxdepth 0 -type d -exec cp -r {} $instance/.minecraft \;
-find $2/.minecraft/config/jei/bookmarks.ini -type f -exec cp {} $instance/.minecraft/config/jei/ \;
+find $from/.minecraft/saves -type f -exec echo todo copy save {} \;
+find $from/.minecraft/resourcepacks -type f -exec echo todo copy resource pack {} \;
+find $from/.minecraft/options.txt -type f -exec cp {} $instance/.minecraft \;
+find $from/.minecraft/journeymap -maxdepth 0 -type d -exec cp -r {} $instance/.minecraft \;
+find $from/.minecraft/config/jei/bookmarks.ini -type f -exec cp {} $instance/.minecraft/config/jei/ \;
