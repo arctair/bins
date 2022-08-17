@@ -1,0 +1,2 @@
+#!/bin/zsh
+haproxy -f /etc/haproxy/haproxy.cfg -c
