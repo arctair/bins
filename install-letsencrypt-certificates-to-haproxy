@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+find /etc/letsencrypt/live -mindepth 1 -type d | while read p ; do
+  site="/etc/haproxy/certs/`echo $p | rev | cut -d / -f1 | rev`.pem"
+  echo installing $site
+  cat $p/privkey.pem $p/fullchain.pem > $site
+done
+
+replacement="`find /etc/haproxy/certs -type f | while read f ; do echo crt $f ; done | xargs echo bind :443 ssl`"
+sed -E "s#bind :443.*#$replacement#" /etc/haproxy/haproxy.cfg > /etc/haproxy/haproxy.cfg.tmp
+diff /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.tmp
+mv /etc/haproxy/haproxy.cfg.tmp /etc/haproxy/haproxy.cfg
